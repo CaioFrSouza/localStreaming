@@ -1,0 +1,42 @@
+.contentCards{
+    margin-top: 10px;
+    padding: 0;
+    margin-left: 6rem;
+    gap: 10px;
+}
+.contentCards img {
+    object-fit: cover ;
+    width: 20vw;
+    height: 10vh;
+    max-width: 500px;
+    max-height: 350px;
+    min-width: 300px;
+    min-height: 150px;
+    transition-duration: var(--transistonDuraction);
+    margin: 5px;
+}
+.card{
+    display: flex;
+    flex: 1;
+}
+.contentCards .card .card-body {
+    margin-left:10% ;
+    display: none;
+    padding-left: 5%;
+    width: 20rem;
+    height: 10rem;
+    max-width: 500px;
+    background-color: var(--bg-primary);
+}
+.contentCards img:hover, .contentCards img:focus {
+    transition-duration: 300ms;
+    max-width: none;
+    object-fit: cover ;
+    border: 2px solid white;
+    border-top:  2px solid white;
+    width: 30vw;
+    height: 25vh;
+    filter: blur(1px);
+    box-shadow: var(--defaultShadow);
+    z-index: 1;
+}

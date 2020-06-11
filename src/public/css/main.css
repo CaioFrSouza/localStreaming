@@ -1,0 +1,26 @@
+:root{
+    font-size: 16px;
+    --text-primary:#b6b6b6;
+    --text-secondary:#ececec;
+    --bg-primary:#23232e;
+    --bg-secundary:#141418;
+    --transistonDuraction:600ms;
+    --defaultShadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+body{
+    margin:0;
+    padding: 0;
+    font-family: 'Metal Mania', cursive !important;
+    background-color: var(--bg-secundary);
+    color: white;
+}
+
+body::-webkit-scrollbar{
+    width: 0.50rem;
+}
+body::-webkit-scrollbar-track{
+    background-color: #1e1e24;
+}
+body::-webkit-scrollbar-thumb{
+    background-color: #db2b60 !important;
+}

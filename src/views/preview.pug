@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+html(lang="pt")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Streaming Local
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap")
+        link(rel="stylesheet", href="css/main.css")
+        link(rel="stylesheet", href="css/nav.css")
+        link(rel="stylesheet", href="css/responsive.css")
+        link(rel="stylesheet", href="css/preview.css")
+    body
+        include includes/nav.pug
+        .contentPreview
+            .card
+                h1.title #{title}
+                img(src = img)
+                .card-body
+                    if video
+                        h1.card-title Selecione o video
+                        ul.eps
+                            each ep in eps
+                                li
+                                    a(data-idEp = ep) #{ep}
+                    else
+                        h1.card-title Selecione a temporada
+                        ul.eps
+                            each ep in eps
+                                li
+                                    a(data-id-temp = ep ) #{ep}
+        script(src="js/jquery.js")
+        script(src="js/preview.js")
