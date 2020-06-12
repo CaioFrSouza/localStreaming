@@ -1,11 +1,13 @@
 const express = require('express')
 const logic = require('./src/logic/index')
-
+const colors = require('colors')
+colors.enable()
 
 const app = express()
 
 app.use('/',express.static('src/public'))
 app.use('/video',express.static('src/public'))
+app.use('/video',express.static('node_modules'))
 
 app.set('views',`${__dirname}/src/views`)
 app.set('view engine','pug')
@@ -27,17 +29,16 @@ app.get('/preview',async(req,res)=> {
 
 })
 app.get('/video',(req,res)=> {
-    const {search } = req.query
+    const {search,title } = req.query
     console.log(search)
-    res.render('video',{
+    return res.render('video',{
+        title,
         search
     })
 })
 app.get('/watch',async(req,res)=> {
-    console.log(req.query.search)
-    console.log(req.param)
-    res.set('Content-Type','video/mp4')
-    return await logic.Video(res,req.query.search)
+    const {range} = req.headers
+    return await logic.Video(res,req.query.search,range)
 })
 app.post('/paths',async(req,res)=> {
     const {result,imgs} = await logic.AllPaths()
@@ -48,9 +49,21 @@ app.post('/paths',async(req,res)=> {
     })
 })
 
-
+app.get('/subtitles',async(req,res)=> {
+    console.log('> Verificando se há legenda....'.yellow)
+    res.set('Content-Type',"subtitles/subtitle")
+    await logic.Subtitles(res,req.query.search)
+})
 app.listen('3000',async() => {
     console.clear()
+    console.log('=================================================='.green);
+    console.log('> Servidor do Local Streaming iniciado com sucesso'.green)
     const {result} = await logic.AllPaths()
-    console.log(result)
+    console.log(`> Foram achados ${result.length} pastas`.green)
+    console.log('=================================================='.green);
+    console.log();
+    
+    for(let i in result){
+        console.log(String(result[i]).yellow)
+    }
 })

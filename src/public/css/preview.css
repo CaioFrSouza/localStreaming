@@ -6,8 +6,11 @@
 .card-title{
     text-align: center;
 }
-a {
-    font-size: xx-large;
+.contentPreview a {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    font-size: x-large;
     cursor: pointer;
     padding-top: 10px !important;
     color: #909090;
@@ -30,7 +33,7 @@ ul.eps{
     background-color: var(--bg-primary);
     text-decoration: none;
     list-style: none;
-    width: auto;
+    width: 50vw;
     height: auto;
     border-radius: 8px;
     display: flex;
@@ -39,12 +42,12 @@ ul.eps{
     margin: 10px;
     transition-duration: var(--transistonDuraction);
 }
-li:hover{
+a:hover{
     margin-top: 10px;
     background-color: var(--bg-secundary);
     box-shadow: var(--defaultShadow);
     border-radius: 10px;
 }
-li:hover a, li:focus a {
+a:hover,  a:focus {
     color: white !important;
 }

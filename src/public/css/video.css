@@ -6,7 +6,7 @@
     margin-left: 8rem;
     flex-direction: column;
 }
-h1{
+h1.title{
     padding-top: 10%;
     text-align: center;
 }
