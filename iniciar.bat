@@ -6,6 +6,6 @@ ECHO ==================================================
 @ECHO
 ECHO Verificando todas as dependencias.....
 
-npm start
+npx nodemon app.js
 
 PAUSE

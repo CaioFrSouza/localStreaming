@@ -40,6 +40,7 @@ module.exports = {
             if(err)
             reject({err})
             let db = await readDb()
+
             if(db.result.length !== result.length){
                 const imgs = []
                 for (let i in result){
@@ -55,6 +56,7 @@ module.exports = {
     data:async(dir) => new Promise(async (resolve,reject)=>{
         const videosExt = ['.mp4','.mkv']
         let files = fs.readdirSync(`${config.VideosPath}/${dir}`)
+        const title = String(dir).split('/')[0]
         let videoFiles = files.filter(value => {
             let bolean
             const ext = path.extname(value).toLowerCase()
@@ -76,7 +78,7 @@ module.exports = {
 
         if(videoFiles.length >0)
             return resolve({video:true,files:videoFiles})
-        return resolve({video:false,files})
+        return resolve({video:false,files,title})
      }),
      Find:async(tearm) => {
         const db = await readDb()

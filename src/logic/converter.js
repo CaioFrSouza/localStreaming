@@ -20,39 +20,42 @@ module.exports = {
             console.log(`> Iniciando o Streaming padrão de ${query}`.green)
             console.log('=================================================='.green);
 
-        res.set({
-            'Content-Range': `bytes ${start}-${end}/${size}`,
-            'Accept-Ranges': 'bytes',
-            'Content-Length': chunkSize,
-            'Content-Type': 'video/mp4'
-        })
-        
-        
-        input_file.on('open',()=> input_file.pipe(res))
-        return
         // res.set({
-        //     'Content-Length': size,
+        //     'Content-Range': `bytes ${start}-${end}/${size}`,
+        //     'Accept-Ranges': 'bytes',
+        //     'Content-Length': chunkSize,
         //     'Content-Type': 'video/mp4'
-        //   });
-        //     console.log(convertVideoName)
-        // console.log(`> Iniciando o Streaming de ${query}....`)
-
-
-        // console.log(input_file)
+        // })
         
-        // const ffmpeg = spawn(ffmepgExt,[
-        // '-hwaccel','auto','-i'
-        // ,'pipe:0','-c:v','libx264','-preset','fast',
-        // '-crf','22','-f','mp4','-movflags','frag_keyframe',
-        // 'pipe:1'])
-        // input_file.pipe(ffmpeg.stdin);
-        // res.status(200)
+        console.log('>Range',range);
         
-        // input_file.on('open',()=> {
-        //     ffmpeg.stdout.pipe(res)
-        //     console.log('> Iniciando a conversão....')})
-        //     ffmpeg.stderr.on('data',data => console.log(String(data.toString()).yellow.bgRed) )
-        //     ffmpeg.stdout.on('end',()=> ffmpeg.stdout.pipe(res))
+        // input_file.on('open',()=> input_file.pipe(res))
+        res.set({
+            // 'Content-Range': `bytes ${start}-${end}/${size}`,
+            'Content-Length': range,
+            'Content-Type': 'video/mp4'
+          });
+            console.log(convertVideoName)
+        console.log(`> Iniciando o Streaming de ${query}....`)
+
+        
+        const ffmpeg = spawn(ffmepgExt,[
+        '-hwaccel','auto','-i'
+        ,'pipe:0','-vf','scale=1280:720',
+        '-c:v','libx264','-preset','fast',
+        '-crf','22','-f','mp4','-movflags','frag_keyframe',
+        'pipe:1'])
+        input_file.pipe(ffmpeg.stdin);
+        res.status(200)
+        input_file.on('open',()=> {
+            console.log('> Iniciando a conversão....')
+            ffmpeg.stdout.pipe(res)
+        })
+            ffmpeg.stderr.on('data',data =>
+             console.log(String(data.toString()).yellow))
+            ffmpeg.stdout.on('end',()=> ffmpeg.stdout.pipe(res))
+        return
+
         
 },
     subtitleConvert: async (input)=> new Promise((resolve,reject) =>  {
@@ -72,7 +75,7 @@ module.exports = {
         process.stderr.on('error',(e)=> reject(e))
         process.stderr.on('data',data => console.log(data.toString()))
         process.stderr.on('end',(e)=> resolve(e))
-        // process = child_Process.spawn(ffmepgExt,['-i',input,output])
+        return
          
     })
 }

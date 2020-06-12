@@ -24,12 +24,13 @@ app.get('/preview',async(req,res)=> {
     return res.render('preview',{
         img:img,
         eps:data.files,
-        video:data.video
+        video:data.video,
+        title:data.title,
     })
 
 })
 app.get('/video',(req,res)=> {
-    const {search,title } = req.query
+    const {search,title} = req.query
     console.log(search)
     return res.render('video',{
         title,
@@ -54,7 +55,7 @@ app.get('/subtitles',async(req,res)=> {
     res.set('Content-Type',"subtitles/subtitle")
     await logic.Subtitles(res,req.query.search)
 })
-app.listen('3000',async() => {
+app.listen(80,async() => {
     console.clear()
     console.log('=================================================='.green);
     console.log('> Servidor do Local Streaming iniciado com sucesso'.green)
